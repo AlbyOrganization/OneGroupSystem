@@ -53,10 +53,10 @@
             // btnSalvar
             // 
             btnSalvar.BackColor = Color.Turquoise;
-            btnSalvar.Location = new Point(225, 144);
+            btnSalvar.Location = new Point(197, 114);
             btnSalvar.Margin = new Padding(2);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(75, 29);
+            btnSalvar.Size = new Size(66, 23);
             btnSalvar.TabIndex = 0;
             btnSalvar.Text = "SALVAR";
             btnSalvar.UseVisualStyleBackColor = false;
@@ -65,10 +65,10 @@
             // btnDeletar
             // 
             btnDeletar.BackColor = Color.Red;
-            btnDeletar.Location = new Point(74, 144);
+            btnDeletar.Location = new Point(65, 114);
             btnDeletar.Margin = new Padding(2);
             btnDeletar.Name = "btnDeletar";
-            btnDeletar.Size = new Size(75, 29);
+            btnDeletar.Size = new Size(66, 23);
             btnDeletar.TabIndex = 1;
             btnDeletar.Text = "DELETAR";
             btnDeletar.UseVisualStyleBackColor = false;
@@ -77,10 +77,10 @@
             // btnNovo
             // 
             btnNovo.BackColor = Color.GreenYellow;
-            btnNovo.Location = new Point(371, 144);
+            btnNovo.Location = new Point(325, 114);
             btnNovo.Margin = new Padding(2);
             btnNovo.Name = "btnNovo";
-            btnNovo.Size = new Size(75, 29);
+            btnNovo.Size = new Size(66, 23);
             btnNovo.TabIndex = 2;
             btnNovo.Text = "NOVO";
             btnNovo.UseVisualStyleBackColor = false;
@@ -89,10 +89,10 @@
             // btnVoltar
             // 
             btnVoltar.BackColor = Color.Orange;
-            btnVoltar.Location = new Point(523, 144);
+            btnVoltar.Location = new Point(458, 114);
             btnVoltar.Margin = new Padding(2);
             btnVoltar.Name = "btnVoltar";
-            btnVoltar.Size = new Size(75, 29);
+            btnVoltar.Size = new Size(66, 23);
             btnVoltar.TabIndex = 3;
             btnVoltar.Text = "VOLTAR";
             btnVoltar.UseVisualStyleBackColor = false;
@@ -106,11 +106,11 @@
             dataGridViewProd.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewProd.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProd.Columns.AddRange(new DataGridViewColumn[] { Id, Preco, Nome, Descricao, Categoria, Marca, IdEstoque, DtEntrada, DtVenda });
-            dataGridViewProd.Location = new Point(9, 35);
+            dataGridViewProd.Location = new Point(8, 28);
             dataGridViewProd.Margin = new Padding(2);
             dataGridViewProd.Name = "dataGridViewProd";
             dataGridViewProd.RowHeadersWidth = 62;
-            dataGridViewProd.Size = new Size(731, 105);
+            dataGridViewProd.Size = new Size(640, 83);
             dataGridViewProd.TabIndex = 4;
             dataGridViewProd.CellValueChanged += dataGridViewProd_CellValueChanged;
             // 
@@ -189,18 +189,19 @@
             panel1.Controls.Add(btnDeletar);
             panel1.Controls.Add(btnVoltar);
             panel1.Controls.Add(btnNovo);
-            panel1.Location = new Point(12, 12);
+            panel1.Location = new Point(10, 9);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(747, 187);
+            panel1.Size = new Size(654, 148);
             panel1.TabIndex = 5;
             // 
             // btnExibir
             // 
             btnExibir.BackColor = Color.Firebrick;
-            btnExibir.Location = new Point(517, 1);
+            btnExibir.Location = new Point(452, 1);
             btnExibir.Margin = new Padding(2);
             btnExibir.Name = "btnExibir";
-            btnExibir.Size = new Size(105, 29);
+            btnExibir.Size = new Size(92, 23);
             btnExibir.TabIndex = 7;
             btnExibir.Text = "EXIBIR TODOS";
             btnExibir.UseVisualStyleBackColor = false;
@@ -208,19 +209,21 @@
             // 
             // txtPesquisa
             // 
-            txtPesquisa.Location = new Point(180, 5);
+            txtPesquisa.Location = new Point(158, 4);
+            txtPesquisa.Margin = new Padding(3, 2, 3, 2);
             txtPesquisa.Name = "txtPesquisa";
             txtPesquisa.PlaceholderText = "Código ou Nome do Produto";
-            txtPesquisa.Size = new Size(184, 26);
+            txtPesquisa.Size = new Size(162, 23);
             txtPesquisa.TabIndex = 6;
+            txtPesquisa.KeyPress += txtPesquisa_KeyPress;
             // 
             // btnPesquisar
             // 
             btnPesquisar.BackColor = Color.RosyBrown;
-            btnPesquisar.Location = new Point(407, 1);
+            btnPesquisar.Location = new Point(356, 1);
             btnPesquisar.Margin = new Padding(2);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(92, 29);
+            btnPesquisar.Size = new Size(80, 23);
             btnPesquisar.TabIndex = 5;
             btnPesquisar.Text = "BUSCAR";
             btnPesquisar.UseVisualStyleBackColor = false;
@@ -228,9 +231,9 @@
             // 
             // Produto
             // 
-            AutoScaleDimensions = new SizeF(8F, 19F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(771, 206);
+            ClientSize = new Size(675, 163);
             Controls.Add(panel1);
             Margin = new Padding(2);
             MaximizeBox = false;

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OneGroup.Class;
+using OneGroup.Utils;
 
 namespace OneGroup
 {
@@ -20,7 +21,7 @@ namespace OneGroup
         {
             InitializeComponent();
             LoadGrid();
-        }        
+        }
         #region "Deletar Produto
         private void btnDeletarProd_Click(object sender, EventArgs e)
         {
@@ -37,7 +38,8 @@ namespace OneGroup
                     var estoqueToRemove = DataStore.Estoques.FirstOrDefault(e => e.IdEstoque == selectedProd.Id);
                     if (estoqueToRemove != null)
                     {
-                        DataStore.Estoques.Remove(estoqueToRemove);
+                            DataStore.Estoques.Remove(estoqueToRemove);
+                            LoadGrid();
                     }
 
                     LoadGrid();
@@ -55,7 +57,7 @@ namespace OneGroup
 
             if (dataGridViewProd.Columns["QntVenda"] != null)
             {
-                dataGridViewProd.Columns["QntVenda"].Visible = false; 
+                dataGridViewProd.Columns["QntVenda"].Visible = false;
             }
         }
         #endregion
@@ -67,7 +69,7 @@ namespace OneGroup
 
             if (dataGridViewProd.Columns["QntVenda"] != null)
             {
-                dataGridViewProd.Columns["QntVenda"].Visible = false; 
+                dataGridViewProd.Columns["QntVenda"].Visible = false;
             }
         }
         #endregion
@@ -80,6 +82,8 @@ namespace OneGroup
         }
         #endregion
         #region "Navegar para a Home"
+
+        #region "Botão Voltar"
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             var home = new Home();
@@ -87,14 +91,14 @@ namespace OneGroup
             this.Close();
         }
         #endregion
+        #endregion
         #region "Buscar Produto"
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
             try
             {
-                string searchText = txtPesquisa.Text.Trim().ToLower(); // Converte a pesquisa para minúsculas
+                string searchText = txtPesquisa.Text.Trim().ToLower(); 
 
-                // Verifica se allProducts foi inicializada
                 if (allProducts == null)
                 {
                     MessageBox.Show("Nenhum produto carregado. Por favor, carregue os produtos antes de pesquisar.");
@@ -114,7 +118,7 @@ namespace OneGroup
             }
         }
         #endregion
-
+        #region "Botão Salvar"
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (!hasChanges)
@@ -127,7 +131,7 @@ namespace OneGroup
             {
                 if (row.IsNewRow) continue;
 
-                var id = (int)row.Cells["Id"].Value; 
+                var id = (int)row.Cells["Id"].Value;
                 var produto = DataStore.Produtos.FirstOrDefault(p => p.Id == id);
 
                 if (produto != null)
@@ -158,19 +162,38 @@ namespace OneGroup
             }
 
             MessageBox.Show("Alterações salvas com sucesso!");
-            hasChanges = false; // Reseta a flag após salvar
-            LoadGrid(); // Atualiza o grid após salvar
+            hasChanges = false; 
+            LoadGrid(); 
         }
-
+        #endregion
+        #region "Validação de Mudanças no GridView"
         private void dataGridViewProd_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Ignora cabeçalho ou linha nova
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return; 
 
-            hasChanges = true; // Marca que houve alterações
+            hasChanges = true; 
         }
+        #endregion
+        #region "Botão Exibir"
         private void btnExibir_Click(object sender, EventArgs e)
         {
             LoadGrid();
         }
+        #endregion
+        #region "Restringindo txtPesquisa"
+        private void txtPesquisa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {;
+                txtPesquisa.BackColor = Color.Red;
+                e.Handled = true;
+            }
+            else
+            {
+                txtPesquisa.BackColor = SystemColors.ActiveCaption;
+                e.Handled = false;
+            }
+        }
+        #endregion
     }
 }

@@ -43,7 +43,7 @@ namespace OneGroup
                 var selectedLine = dataGridViewFornec.SelectedRows[0];
                 var selectedFornec = (FornecedorModel)selectedLine.DataBoundItem;
 
-                var result = MessageBox.Show("Tem certeza que deseja remover este produto?", "Confirmação", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("Tem certeza que deseja remover este fornecedor?", "Confirmação", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     DataStore.Fornecedores.Remove(selectedFornec);
@@ -59,7 +59,7 @@ namespace OneGroup
             dataGridViewFornec.DataSource = DataStore.Fornecedores;
         }
         #endregion
-
+        #region "Botão Salvar"
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (!hasChanges)
@@ -93,6 +93,7 @@ namespace OneGroup
             LoadGrid();
             hasChanges = false; 
         }
+        #endregion
         #region "Verificando Mudança em Célula do GridView"
         private void dataGridViewFornec_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {

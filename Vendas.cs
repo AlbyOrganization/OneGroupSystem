@@ -16,8 +16,10 @@ namespace OneGroup
         public Vendas()
         {
             InitializeComponent();
+            lblDisponivel.Text = "";
         }
 
+        #region "Restringindo txtQntVendida"
         private void txtQntVendida_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
@@ -31,7 +33,8 @@ namespace OneGroup
                 txtQntVendida.BackColor = SystemColors.ActiveCaption;
             }
         }
-
+        #endregion
+        #region "Restringindo txtId"
         private void txtId_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
@@ -45,74 +48,23 @@ namespace OneGroup
                 txtQntVendida.BackColor = SystemColors.ActiveCaption;
             }
         }
-
+        #endregion
+        #region "Navegar para GestaoVenda"
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             var gestVenda = new GestaoVenda();
             gestVenda.Show();
             this.Close();
         }
-
-        private void btnCadastrar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int qtdVendida = Convert.ToInt32(txtQntVendida.Text);
-                int idProduto = Convert.ToInt32(txtId.Text);
-                int qtdEntrada = 0;
-
-                var produto = DataStore.Produtos.FirstOrDefault(p => p.Id == idProduto);
-                if (produto == null)
-                {
-                    MessageBox.Show("Produto não encontrado.");
-                    return;
-                }
-
-                var estoque = DataStore.Estoques.FirstOrDefault(e => e.IdEstoque == produto.IdEstoque);
-                if (estoque == null)
-                {
-                    MessageBox.Show("Estoque não encontrado.");
-                    return;
-                }
-
-                if (qtdVendida > 0)
-                {
-                    if (estoque.QtdDisponivel < qtdVendida)
-                    {
-                        MessageBox.Show("Estoque insuficiente para a venda.");
-                        return;
-                    }
-
-                    produto.AtualizarQntVenda(qtdVendida);
-
-                    MessageBox.Show("Venda realizada com sucesso!");
-                }
-                else
-                {
-                    qtdEntrada = Math.Abs(qtdVendida);
-
-                    estoque.QtdDisponivel += qtdEntrada;
-                    estoque.Entrada += qtdEntrada;
-                    estoque.DataAtualizacao = DateTime.Now;
-
-                    estoque.MotivoEntrada = "Entrada de produtos - " + produto.Nome;
-
-                    MessageBox.Show("Entrada de produtos registrada com sucesso!");
-                }
-
-                ClearInputs();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao processar a venda ou entrada: " + ex.Message);
-            }
-        }
+        #endregion
+        #region "Limpar Campos"
         public void ClearInputs()
         {
             txtId.Clear();
             txtQntVendida.Clear();
         }
-
+        #endregion
+        #region "Formatação de Entrada em txtId"
         private void txtId_Leave(object sender, EventArgs e)
         {
             try
@@ -147,12 +99,14 @@ namespace OneGroup
                     txtId.BackColor = Color.Red;
                     MessageBox.Show("ID inválido. Por favor, insira um ID válido.");
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro identificado: " + ex.Message);
             }
         }
-
+        #endregion
+        #region "Formatação de Entrada de txtQntVendida"
         private void txtQntVendida_Leave(object sender, EventArgs e)
         {
             try
@@ -176,10 +130,73 @@ namespace OneGroup
                     txtQntVendida.Clear();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro identificado: " + ex.Message);
             }
+        }
+        #endregion
+        #region "Botão de Venda"
+        private void btnVender_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int qtdVendida = Convert.ToInt32(txtQntVendida.Text);
+                int idProduto = Convert.ToInt32(txtId.Text);
+                int qtdEntrada = 0;
+
+                var produto = DataStore.Produtos.FirstOrDefault(p => p.Id == idProduto);
+                if (produto == null)
+                {
+                    MessageBox.Show("Produto não encontrado.");
+                    return;
+                }
+
+                var estoque = DataStore.Estoques.FirstOrDefault(e => e.IdEstoque == produto.IdEstoque);
+                if (estoque == null)
+                {
+                    MessageBox.Show("Estoque não encontrado.");
+                    return;
+                }
+
+                if (qtdVendida > 0)
+                {
+                    if (estoque.QtdDisponivel < qtdVendida)
+                    {
+                        MessageBox.Show("Estoque insuficiente para a venda.");
+                        return;
+                    }
+
+                    produto.AtualizarQntVenda(qtdVendida);
+
+                    estoque.QtdDisponivel -= qtdVendida;
+                    estoque.Saida += qtdVendida;
+                    estoque.DataAtualizacao = DateTime.Now;
+
+                    estoque.MotivoSaida = "Venda de produtos - " + produto.Nome;
+                    lblDisponivel.Text = "";
+                    MessageBox.Show("Venda realizada com sucesso!");
+                }
+                else
+                {
+                    qtdEntrada = Math.Abs(qtdVendida);
+
+                    estoque.QtdDisponivel += qtdEntrada;
+                    estoque.Entrada += qtdEntrada;
+                    estoque.DataAtualizacao = DateTime.Now;
+
+                    estoque.MotivoEntrada = "Entrada de produtos - " + produto.Nome;
+
+                    MessageBox.Show("Entrada de produtos registrada com sucesso!");
+                }
+
+                ClearInputs();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao processar a venda ou entrada: " + ex.Message);
+            }
+            #endregion
         }
     }
 }

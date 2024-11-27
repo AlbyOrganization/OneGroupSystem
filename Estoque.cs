@@ -43,13 +43,11 @@ namespace OneGroup
                 var selectedLine = dataGridViewEstoque.SelectedRows[0];
                 var selectedEstoque = (EstoqueModel)selectedLine.DataBoundItem;
 
-                var result = MessageBox.Show("Tem certeza que deseja remover este item de estoque?", "Confirmação", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("Tem certeza que deseja remover este item de estoque juntamente com seu produto?", "Confirmação", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    // Remove o estoque do DataStore
                     DataStore.Estoques.Remove(selectedEstoque);
 
-                    // Remove o produto correspondente, se existir
                     var produtoToRemove = DataStore.Produtos.FirstOrDefault(p => p.Id == selectedEstoque.IdEstoque);
                     if (produtoToRemove != null)
                     {
@@ -60,12 +58,8 @@ namespace OneGroup
                 }
             }
         }
-        #endregion
 
-        private void Estoque_Load(object sender, EventArgs e)
-        {
-
-        }
+#endregion
         #region "Salvar Edição"
         private void btnSalvar_Click(object sender, EventArgs e)
         {
@@ -103,12 +97,8 @@ namespace OneGroup
             LoadGrid();
             hasChanges = false;
         }
-        #endregion
 
-        private void dataGridViewEstoque_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+#endregion
         
         private void dataGridViewEstoque_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {

@@ -32,14 +32,12 @@ namespace OneGroup
             dataGridViewProd.Columns["IdEstoque"].Visible = false;
 
             dataGridViewEstoque.DataSource = DataStore.Estoques.ToList();
-            dataGridViewEstoque.Columns["IdEstoque"].Visible = false;
             dataGridViewEstoque.Columns["QtdDisponivel"].Visible = false;
             dataGridViewEstoque.Columns["QntVenda"].Visible = false;
             dataGridViewEstoque.Columns["MotivoEntrada"].Visible = false;
             dataGridViewEstoque.Columns["MotivoSaida"].Visible = false;
         }
         #endregion
-
         #region "Navegar para a página Fornecedor"
         private void btnCadFornec_Click(object sender, EventArgs e)
         {
@@ -69,17 +67,19 @@ namespace OneGroup
                     var result = MessageBox.Show("Tem certeza que deseja remover este produto e o estoque correspondente?", "Confirmação", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        // Remover Produto
                         var selectedProd = DataStore.Produtos.FirstOrDefault(prod => prod.Id == selectedProdId);
                         if (selectedProd != null)
                         {
                             DataStore.Produtos.Remove(selectedProd);
 
-                            // Remover Estoque correspondente
                             var estoqueToRemove = DataStore.Estoques.FirstOrDefault(e => e.IdEstoque == selectedProd.IdEstoque);
                             if (estoqueToRemove != null)
                             {
-                                DataStore.Estoques.Remove(estoqueToRemove);
+                                 result = MessageBox.Show("Tem certeza que deseja remover este produto?", "Confirmação", MessageBoxButtons.YesNo);
+                                if (result == DialogResult.Yes)
+                                {
+                                    DataStore.Estoques.Remove(estoqueToRemove);
+                                }
                             }
 
                             LoadGrid();
@@ -97,7 +97,7 @@ namespace OneGroup
             }
         }
         #endregion
-
+        #region "Botão Salvar"
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             try
@@ -114,7 +114,6 @@ namespace OneGroup
                     return;
                 }
 
-                // Salvar alterações no grid de Produtos
                 foreach (DataGridViewRow row in dataGridViewProd.Rows)
                 {
                     if (row.IsNewRow) continue;
@@ -135,7 +134,6 @@ namespace OneGroup
                     }
                 }
 
-                // Salvar alterações no grid de Estoques
                 foreach (DataGridViewRow row in dataGridViewEstoque.Rows)
                 {
                     if (row.IsNewRow) continue;
@@ -164,7 +162,8 @@ namespace OneGroup
                 MessageBox.Show("Erro encontrado: " + ex.Message);
             }
         }
-        #region "Verificando Mudança em Célula do GridView"
+        #endregion
+        #region "Verificando Mudança em Célula do GridViewProduto"
         private void dataGridViewVendas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -173,19 +172,15 @@ namespace OneGroup
             }
         }
         #endregion
-
-        private void dataGridViewVendas_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            hasChanges = true;
-        }
-
+        #region "Botão Vendas"
         private void btnVendas_Click(object sender, EventArgs e)
         {
             var vendas = new Vendas();
             vendas.Show();
             this.Hide();
         }
-
+        #endregion
+        #region "Verificando Mudança em Célula do GridViewEstoque"
         private void dataGridViewEstoque_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -193,10 +188,6 @@ namespace OneGroup
                 hasChanges = true;
             }
         }
-
-        private void dataGridViewEstoque_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            hasChanges = true;
-        }
+        #endregion
     }
 }
