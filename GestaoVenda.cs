@@ -34,7 +34,7 @@ namespace OneGroup
             dataGridViewEstoque.DataSource = DataStore.Estoques.ToList();
             dataGridViewEstoque.Columns["IdEstoque"].Visible = false;
             dataGridViewEstoque.Columns["QtdDisponivel"].Visible = false;
-            dataGridViewEstoque.Columns["QntVenda"].Visible = false;b
+            dataGridViewEstoque.Columns["QntVenda"].Visible = false;
             dataGridViewEstoque.Columns["MotivoEntrada"].Visible = false;
             dataGridViewEstoque.Columns["MotivoSaida"].Visible = false;
         }
