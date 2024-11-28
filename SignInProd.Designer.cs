@@ -80,6 +80,7 @@
             txtPreco.Size = new Size(101, 24);
             txtPreco.TabIndex = 1;
             txtPreco.TextAlign = HorizontalAlignment.Center;
+            txtPreco.Leave += txtPreco_Leave;
             // 
             // txtDesc
             // 
@@ -226,6 +227,7 @@
             txtQtdDisponivel.TabIndex = 30;
             txtQtdDisponivel.TextAlign = HorizontalAlignment.Center;
             txtQtdDisponivel.KeyPress += txtQtdDisponivel_KeyPress;
+            txtQtdDisponivel.Leave += txtQtdDisponivel_Leave;
             // 
             // label9
             // 

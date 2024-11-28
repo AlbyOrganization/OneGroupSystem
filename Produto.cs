@@ -110,7 +110,7 @@ namespace OneGroup
                                    prod.Id.ToString().Contains(searchText))
                     .ToList();
 
-                DisplayProducts(filteredProducts); // Exibe os produtos filtrados
+                DisplayProducts(filteredProducts);
             }
             catch (Exception ex)
             {
@@ -136,7 +136,6 @@ namespace OneGroup
 
                 if (produto != null)
                 {
-                    // Atualiza os campos do produto existente na lista
                     produto.Nome = row.Cells["Nome"].Value.ToString();
                     produto.Preco = Convert.ToDecimal(row.Cells["Preco"].Value);
                     produto.Descricao = row.Cells["Descricao"].Value.ToString();
@@ -156,7 +155,6 @@ namespace OneGroup
                         Convert.ToDateTime(row.Cells["DtEntrada"].Value),
                         Convert.ToDateTime(row.Cells["DtVenda"].Value)
                     );
-
                     DataStore.Produtos.Add(novoProduto);
                 }
             }

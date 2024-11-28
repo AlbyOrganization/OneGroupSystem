@@ -73,7 +73,7 @@ namespace OneGroup
             {
                 if (row.IsNewRow) continue;
 
-                var id = (int)row.Cells["Id"].Value;
+                var id = (int)row.Cells["IdEstoque"].Value;
                 var estoque = DataStore.Estoques.FirstOrDefault(e => e.IdEstoque == id);
 
                 if (estoque != null)
@@ -98,8 +98,8 @@ namespace OneGroup
             hasChanges = false;
         }
 
-#endregion
-        
+        #endregion
+        #region "Validação de Mudanças no GridView"
         private void dataGridViewEstoque_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -107,5 +107,6 @@ namespace OneGroup
                 hasChanges = true; 
             }
         }
+        #endregion
     }
 }
