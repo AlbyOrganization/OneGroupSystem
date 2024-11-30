@@ -26,7 +26,7 @@ Obs.: Na tela GestaoVenda, necessita-se de selecionar as tuplas de ambas as tabe
 - [Alberto Ziurkelis de Araujo](https://github.com/AlbertZiurk) --> Desenvolvedor Back-End
 - [Alex Abel Costa Siva](https://github.com/AllexAbel) --> Designer Web
 - [Samuel Boldieri Monteiro](https://github.com/destru345) --> QA (Quality Assurance)
-- [Kauhã Conceição de Moura](https://github.com/destru345) --> QA (Quality Assurance)
+- [Kauhã Conceição de Moura]() --> QA (Quality Assurance)
 
 ## Estrutura de Pastas do Projeto
 - .vs
