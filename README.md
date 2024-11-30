@@ -14,7 +14,7 @@ Vender Produtos interligados com Estoque
 
 CRUD de Fornecedores e cadastro de fornecedores
 
-Obs.: Na tela GestaoVenda, necessita-se de selecionar as tuplas de ambas as tabelas para que possa haver remoção de um produto e seu estoque. Além disso, garanta que os campos de entrada e saída do cadastro de produtos e estoques sejam numéricos, caso use-os.
+Obs.: Na tela GestaoVenda, necessita-se de selecionar as tuplas de ambas as tabelas para que possa haver remoção de um produto e seu estoque. Além disso, garanta que os campos de entrada e saída do cadastro de produtos e estoques sejam numéricos, caso use-os. O campo de preço em cadastro de produtos deve-se utilizar ponto, ex:12.12.
 
 ## Sobre a OneGroup
 | Caso deseja ver mais sobre a nossa compania, navegue para este repositório: https://github.com/AlbyOrganization/SiteOneGroup
