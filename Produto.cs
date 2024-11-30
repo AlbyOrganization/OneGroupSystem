@@ -181,7 +181,7 @@ namespace OneGroup
         #region "Restringindo txtPesquisa"
         private void txtPesquisa_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            if(!char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
             {;
                 txtPesquisa.BackColor = Color.Red;
                 e.Handled = true;
