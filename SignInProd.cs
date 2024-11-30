@@ -19,6 +19,7 @@ namespace OneGroup
 {
     public partial class SignInProd : Form
     {
+        bool validatingTxtBox = false;
         public SignInProd()
         {
             InitializeComponent();
@@ -36,31 +37,34 @@ namespace OneGroup
 
                     ValidarCamposNaoObrigatorios();
 
-                    int qtdDisponivel = Convert.ToInt32(txtQtdDisponivel.Text.Trim());
-                    decimal preco = decimal.Parse(txtPreco.Text.Trim(), CultureInfo.InvariantCulture);
-                    string nome = txtNome.Text.Trim();
-                    string descricao = txtDesc.Text.Trim();
-                    string categoria = txtCategoria.Text.Trim();
-                    string marca = txtMarca.Text.Trim();
-                    DateTime dtEntrada = dtpEntrada.Value;
-                    DateTime dtVenda = dtpVenda.Value;
-                    string localizacao = cmbLocal.Text.Trim();
-                    string motivoEntrada = txtMotivoEntrada.Text.Trim();
-                    string motivoSaida = txtMotivoSaida.Text.Trim();
-                    int entrada = string.IsNullOrEmpty(txtEntrada.Text.Trim()) ? 0 : Convert.ToInt32(txtEntrada.Text.Trim());
-                    int saida = string.IsNullOrEmpty(txtSaida.Text.Trim()) ? 0 : Convert.ToInt32(txtSaida.Text.Trim());
-
-                    //decimal newPreco = FormatarPreco(preco);
-
-                    var newEstoque = new EstoqueModel(localizacao, saida, entrada, motivoEntrada, motivoSaida, qtdDisponivel);
-                    var newProd = new ProdutoModel(nome, preco, descricao, categoria, marca, dtEntrada, dtVenda);
+                    if (validatingTxtBox == true)
+                    {
+                        AddingColorsToTxtBoxes();    
+                        int qtdDisponivel = Convert.ToInt32(txtQtdDisponivel.Text.Trim());
+                        decimal preco = decimal.Parse(txtPreco.Text.Trim(), CultureInfo.InvariantCulture);
+                        string nome = txtNome.Text.Trim();
+                        string descricao = txtDesc.Text.Trim();
+                        string categoria = txtCategoria.Text.Trim();
+                        string marca = txtMarca.Text.Trim();
+                        DateTime dtEntrada = dtpEntrada.Value;
+                        DateTime dtVenda = dtpVenda.Value;
+                        string localizacao = cmbLocal.Text.Trim();
+                        string motivoEntrada = txtMotivoEntrada.Text.Trim();
+                        string motivoSaida = txtMotivoSaida.Text.Trim();
+                        int entrada = string.IsNullOrEmpty(txtEntrada.Text.Trim()) ? 0 : Convert.ToInt32(txtEntrada.Text.Trim());
+                        int saida = string.IsNullOrEmpty(txtSaida.Text.Trim()) ? 0 : Convert.ToInt32(txtSaida.Text.Trim());
 
 
-                    DataStore.Produtos.Add(newProd);
-                    DataStore.Estoques.Add(newEstoque);
+                        var newEstoque = new EstoqueModel(localizacao, saida, entrada, motivoEntrada, motivoSaida, qtdDisponivel);
+                        var newProd = new ProdutoModel(nome, preco, descricao, categoria, marca, dtEntrada, dtVenda);
 
-                    MessageBox.Show("Cadastro realizado com sucesso!");
-                    ClearInputs();
+
+                        DataStore.Produtos.Add(newProd);
+                        DataStore.Estoques.Add(newEstoque);
+
+                        MessageBox.Show("Cadastro realizado com sucesso!");
+                        ClearInputs();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -69,14 +73,7 @@ namespace OneGroup
             }
         }
         #endregion
-        #region "Formatar Preço"
-        private decimal FormatarPreco(decimal preco)
-        {
-            string newPreco = preco.ToString("C2", new CultureInfo("pt-BR"));
-            decimal decimalPreco = Convert.ToDecimal(newPreco);
-            return decimalPreco;
-        }
-        #endregion
+
         #region "ValidarCamposObrigatorios"
         private bool ValidarCamposObrigatorios()
         {
@@ -119,31 +116,28 @@ namespace OneGroup
         }
         #endregion
         #region "ValidarCamposNaoObrigatorios"
-        private void ValidarCamposNaoObrigatorios()
+        private bool ValidarCamposNaoObrigatorios()
         {
             if (!string.IsNullOrEmpty(txtDesc.Text) && txtDesc.Text.Length > 150)
             {
                 txtDesc.BackColor = Color.Red;
                 MessageBox.Show("A descrição não pode conter mais de 150 caracteres.");
+                return validatingTxtBox = false;
             }
-            else
-            {
-                txtDesc.BackColor = SystemColors.ActiveCaption;
-            }
-
-            if (!string.IsNullOrEmpty(txtMarca.Text) && txtMarca.Text.Length > 40)
+            else if (!string.IsNullOrEmpty(txtMarca.Text) && txtMarca.Text.Length > 40)
             {
                 txtMarca.BackColor = Color.Red;
                 MessageBox.Show("A marca não pode conter mais de 40 caracteres.");
+                return validatingTxtBox = false;
+            }
+            else if (dtpVenda.Value < dtpEntrada.Value)
+            {
+                MessageBox.Show("A data de venda não pode ser anterior à data de entrada.");
+                return validatingTxtBox = false;
             }
             else
             {
-                txtMarca.BackColor = SystemColors.ActiveCaption;
-            }
-
-            if (dtpVenda.Value < dtpEntrada.Value)
-            {
-                MessageBox.Show("A data de venda não pode ser anterior à data de entrada.");
+                return validatingTxtBox = true;
             }
         }
         #endregion
@@ -151,6 +145,7 @@ namespace OneGroup
         private void ClearInputs()
         {
             cmbLocal.Text = "";
+            cmbLocal.Text = "Localização";
             txtNome.Clear();
             txtDesc.Clear();
             txtCategoria.Clear();
@@ -161,21 +156,13 @@ namespace OneGroup
             txtMotivoSaida.Clear();
             txtSaida.Clear();
             txtEntrada.Clear();
-
-            dtpEntrada.Format = DateTimePickerFormat.Custom;
-            dtpEntrada.CustomFormat = " ";
-            dtpEntrada.Value = DateTime.Now;
-
-            dtpVenda.Format = DateTimePickerFormat.Custom;
-            dtpVenda.CustomFormat = " ";
-            dtpVenda.Value = DateTime.Now;
         }
         #endregion
-        #region "Voltar para Home"
+        #region "Voltar para Produtos"
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            var fornec = new Fornecedor();
-            fornec.Show();
+            var prod = new Produto();
+            prod.Show();
             this.Close();
         }
         #endregion
@@ -185,7 +172,6 @@ namespace OneGroup
             txtCategoria.BackColor = SystemColors.ActiveCaption;
             txtDesc.BackColor = SystemColors.ActiveCaption;
             txtEntrada.BackColor = SystemColors.ActiveCaption;
-            txtLocal.BackColor = SystemColors.ActiveCaption;
             txtMarca.BackColor = SystemColors.ActiveCaption;
             txtMotivoEntrada.BackColor = SystemColors.ActiveCaption;
             txtMotivoSaida.BackColor = SystemColors.ActiveCaption;
@@ -256,7 +242,6 @@ namespace OneGroup
             }
         }
         #endregion
-
         #region "Validando txtPreco"
         private void txtPreco_Leave(object sender, EventArgs e)
         {
@@ -271,7 +256,7 @@ namespace OneGroup
             }
         }
         #endregion
-
+        #region "Restingindo txtQtdDisponivel"
         private void txtQtdDisponivel_Leave(object sender, EventArgs e)
         {
             if(!int.TryParse(txtQtdDisponivel.Text.Trim(), out int qtdDisponivel) || qtdDisponivel < 0)
@@ -280,5 +265,6 @@ namespace OneGroup
                 MessageBox.Show("");
             }
         }
+        #endregion
     }
 }

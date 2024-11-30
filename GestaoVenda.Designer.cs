@@ -36,7 +36,6 @@
             DtEntrada = new DataGridViewTextBoxColumn();
             DtVenda = new DataGridViewTextBoxColumn();
             btnDeletarGestaoVenda = new Button();
-            btnSalvar = new Button();
             panel1 = new Panel();
             dataGridViewEstoque = new DataGridView();
             IdEstoque = new DataGridViewTextBoxColumn();
@@ -54,10 +53,10 @@
             // btnVoltar
             // 
             btnVoltar.BackColor = Color.Orange;
-            btnVoltar.Location = new Point(471, 189);
-            btnVoltar.Margin = new Padding(2, 2, 2, 2);
+            btnVoltar.Location = new Point(538, 239);
+            btnVoltar.Margin = new Padding(2, 3, 2, 3);
             btnVoltar.Name = "btnVoltar";
-            btnVoltar.Size = new Size(66, 23);
+            btnVoltar.Size = new Size(75, 29);
             btnVoltar.TabIndex = 0;
             btnVoltar.Text = "VOLTAR";
             btnVoltar.UseVisualStyleBackColor = false;
@@ -69,11 +68,11 @@
             dataGridViewProd.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewProd.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProd.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Preco, DtEntrada, DtVenda });
-            dataGridViewProd.Location = new Point(19, 13);
-            dataGridViewProd.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewProd.Location = new Point(22, 16);
+            dataGridViewProd.Margin = new Padding(2, 3, 2, 3);
             dataGridViewProd.Name = "dataGridViewProd";
             dataGridViewProd.RowHeadersWidth = 62;
-            dataGridViewProd.Size = new Size(569, 66);
+            dataGridViewProd.Size = new Size(650, 84);
             dataGridViewProd.TabIndex = 2;
             dataGridViewProd.CellValueChanged += dataGridViewVendas_CellValueChanged;
             // 
@@ -114,26 +113,14 @@
             // btnDeletarGestaoVenda
             // 
             btnDeletarGestaoVenda.BackColor = Color.Red;
-            btnDeletarGestaoVenda.Location = new Point(95, 189);
-            btnDeletarGestaoVenda.Margin = new Padding(2, 2, 2, 2);
+            btnDeletarGestaoVenda.Location = new Point(109, 239);
+            btnDeletarGestaoVenda.Margin = new Padding(2, 3, 2, 3);
             btnDeletarGestaoVenda.Name = "btnDeletarGestaoVenda";
-            btnDeletarGestaoVenda.Size = new Size(66, 23);
+            btnDeletarGestaoVenda.Size = new Size(75, 29);
             btnDeletarGestaoVenda.TabIndex = 4;
             btnDeletarGestaoVenda.Text = "DELETAR";
             btnDeletarGestaoVenda.UseVisualStyleBackColor = false;
             btnDeletarGestaoVenda.Click += btnDeletarGestaoVenda_Click;
-            // 
-            // btnSalvar
-            // 
-            btnSalvar.BackColor = Color.Turquoise;
-            btnSalvar.Location = new Point(208, 189);
-            btnSalvar.Margin = new Padding(2, 2, 2, 2);
-            btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(66, 23);
-            btnSalvar.TabIndex = 3;
-            btnSalvar.Text = "SALVAR";
-            btnSalvar.UseVisualStyleBackColor = false;
-            btnSalvar.Click += btnSalvar_Click;
             // 
             // panel1
             // 
@@ -142,12 +129,10 @@
             panel1.Controls.Add(btnVendas);
             panel1.Controls.Add(dataGridViewProd);
             panel1.Controls.Add(btnVoltar);
-            panel1.Controls.Add(btnSalvar);
             panel1.Controls.Add(btnDeletarGestaoVenda);
-            panel1.Location = new Point(10, 14);
-            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Location = new Point(11, 18);
             panel1.Name = "panel1";
-            panel1.Size = new Size(604, 229);
+            panel1.Size = new Size(690, 290);
             panel1.TabIndex = 6;
             // 
             // dataGridViewEstoque
@@ -156,11 +141,11 @@
             dataGridViewEstoque.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewEstoque.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewEstoque.Columns.AddRange(new DataGridViewColumn[] { IdEstoque, DataAtualizacao, QtdDisponivel, QntVenda, Entrada, Saida });
-            dataGridViewEstoque.Location = new Point(19, 90);
-            dataGridViewEstoque.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewEstoque.Location = new Point(22, 114);
+            dataGridViewEstoque.Margin = new Padding(2, 3, 2, 3);
             dataGridViewEstoque.Name = "dataGridViewEstoque";
             dataGridViewEstoque.RowHeadersWidth = 62;
-            dataGridViewEstoque.Size = new Size(569, 66);
+            dataGridViewEstoque.Size = new Size(650, 84);
             dataGridViewEstoque.TabIndex = 11;
             dataGridViewEstoque.CellValueChanged += dataGridViewEstoque_CellValueChanged;
             // 
@@ -205,10 +190,10 @@
             // btnVendas
             // 
             btnVendas.BackColor = Color.GreenYellow;
-            btnVendas.Location = new Point(340, 189);
-            btnVendas.Margin = new Padding(2, 2, 2, 2);
+            btnVendas.Location = new Point(305, 239);
+            btnVendas.Margin = new Padding(2, 3, 2, 3);
             btnVendas.Name = "btnVendas";
-            btnVendas.Size = new Size(66, 23);
+            btnVendas.Size = new Size(75, 29);
             btnVendas.TabIndex = 10;
             btnVendas.Text = "VENDER";
             btnVendas.UseVisualStyleBackColor = false;
@@ -216,11 +201,11 @@
             // 
             // GestaoVenda
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(626, 263);
+            ClientSize = new Size(715, 333);
             Controls.Add(panel1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2, 3, 2, 3);
             MaximizeBox = false;
             Name = "GestaoVenda";
             StartPosition = FormStartPosition.CenterScreen;
@@ -236,7 +221,6 @@
         private Button btnVoltar;
         private DataGridView dataGridViewProd;
         private Button btnDeletarGestaoVenda;
-        private Button btnSalvar;
         private Panel panel1;
         private Button btnVendas;
         private DataGridView dataGridViewEstoque;
